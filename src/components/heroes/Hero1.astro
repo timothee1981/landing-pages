@@ -1,0 +1,169 @@
+---
+/**
+ * Hero1 - Bold/Dramatic
+ * Full-screen background with large typography and prominent CTA
+ * Best for: Rock, Metal, Punk, High-energy artists
+ * Conversion focus: Single dominant CTA above the fold
+ */
+
+interface Props {
+  artistName: string;
+  tagline: string;
+  genre?: string;
+  ctaText: string;
+  ctaUrl: string;
+  secondaryCtaText?: string;
+  secondaryCtaUrl?: string;
+  backgroundImage?: string;
+  backgroundVideo?: string;
+}
+
+const {
+  artistName,
+  tagline,
+  genre,
+  ctaText,
+  ctaUrl,
+  secondaryCtaText,
+  secondaryCtaUrl,
+  backgroundImage = "/landing/images/hero-bg.jpg",
+  backgroundVideo,
+} = Astro.props;
+---
+
+<section
+  class="hero-bold relative min-h-screen flex items-center justify-center overflow-hidden"
+>
+  <!-- Background -->
+  {
+    backgroundVideo ? (
+      <video
+        class="absolute inset-0 w-full h-full object-cover"
+        autoplay
+        muted
+        loop
+        playsinline
+        poster={backgroundImage}
+      >
+        <source src={backgroundVideo} type="video/mp4" />
+      </video>
+    ) : (
+      <div
+        class="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={`background-image: url('${backgroundImage}')`}
+      />
+    )
+  }
+
+  <!-- Overlay gradient -->
+  <div
+    class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/90"
+  >
+  </div>
+
+  <!-- Red accent glow -->
+  <div
+    class="absolute inset-0 bg-gradient-radial from-red-900/20 via-transparent to-transparent"
+  >
+  </div>
+
+  <!-- Content -->
+  <div class="relative z-10 container-wide text-center">
+    <!-- Genre tag -->
+    {genre && <p class="text-caption mb-6 animate-fade-in">{genre}</p>}
+
+    <!-- Artist name -->
+    <h1 class="heading-xl text-white mb-6 animate-slide-up">
+      <span class="block">{artistName}</span>
+    </h1>
+
+    <!-- Tagline -->
+    <p
+      class="text-body-lg text-white/80 max-w-2xl mx-auto mb-10 animate-slide-up delay-200"
+    >
+      {tagline}
+    </p>
+
+    <!-- CTAs -->
+    <div
+      class="flex flex-col sm:flex-row items-center justify-center gap-4 animate-slide-up delay-300"
+    >
+      <a href={ctaUrl} class="btn-primary pulse-ring group">
+        <span>{ctaText}</span>
+        <svg
+          class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+        </svg>
+      </a>
+
+      {
+        secondaryCtaText && secondaryCtaUrl && (
+          <a href={secondaryCtaUrl} class="btn-secondary">
+            {secondaryCtaText}
+          </a>
+        )
+      }
+    </div>
+  </div>
+
+  <!-- Scroll indicator - positioned at bottom of hero section -->
+  <div class="absolute bottom-6 left-1/2 -translate-x-1/2 animate-bounce z-10">
+    <svg
+      class="w-6 h-6 text-white/50"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+    </svg>
+  </div>
+
+  <!-- Decorative elements -->
+  <div
+    class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-red-600 to-transparent"
+  >
+  </div>
+</section>
+
+<style>
+  .hero-bold {
+    background-color: var(--color-dark);
+  }
+
+  .hero-bold::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      circle at 50% 50%,
+      var(--color-primary) 0%,
+      transparent 70%
+    );
+    opacity: 0.1;
+    animation: pulse 4s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%,
+    100% {
+      opacity: 0.1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.15;
+      transform: scale(1.05);
+    }
+  }
+</style>

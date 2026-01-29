@@ -1,0 +1,129 @@
+---
+/**
+ * Bio5 - Quote-Focused
+ * Large pull quote with elegant styling
+ * Best for: Classical, Jazz, Sophisticated artists
+ */
+
+interface Props {
+  artistName: string;
+  bio: string;
+  quote: string;
+  quoteSource?: string;
+  image?: string;
+  awards?: string[];
+}
+
+const {
+  artistName,
+  bio,
+  quote,
+  quoteSource = "The Guardian",
+  image,
+  awards = ["Grammy Nominee", "Classical BRIT Award", "Echo Klassik"],
+} = Astro.props;
+---
+
+<section id="bio" class="section bg-slate-950 relative overflow-hidden">
+  <!-- Background texture -->
+  <div
+    class="absolute inset-0 opacity-5"
+    style="background-image: url('data:image/svg+xml,%3Csvg width=\"
+    60\"
+    height='\"60\"'
+    viewBox='\"0'
+    0
+    60
+    60\"
+    xmlns='\"http://www.w3.org/2000/svg\"%3E%3Cg'
+    fill='\"none\"'
+    fill-rule='\"evenodd\"%3E%3Cg'
+    fill='\"%23d4af37\"'
+    fill-opacity='\"1\"%3E%3Cpath'
+    d='\"M36'
+    34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6
+    34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6
+    4V0H4v4H0v2h4v4h2V6h4V4H6z\"
+    %3E%3C
+    g%3E%3C
+    g%3E%3C
+    svg%3E');"
+  >
+  </div>
+
+  <div class="container-wide relative">
+    <!-- Large quote -->
+    <div class="max-w-5xl mx-auto text-center mb-20">
+      <svg
+        class="w-16 h-16 mx-auto text-amber-500/30 mb-8"
+        fill="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"
+        ></path>
+      </svg>
+
+      <blockquote
+        class="font-display text-3xl sm:text-4xl md:text-5xl text-amber-50 leading-tight mb-8"
+      >
+        {quote}
+      </blockquote>
+
+      <cite class="text-amber-500 not-italic">— {quoteSource}</cite>
+    </div>
+
+    <!-- Divider -->
+    <div class="divider mb-20"></div>
+
+    <!-- Bio content with image -->
+    <div class="grid lg:grid-cols-2 gap-16 items-center">
+      <!-- Image -->
+      {
+        image && (
+          <div class="relative">
+            <div class="absolute -inset-4 border border-amber-500/20" />
+            <img
+              src={image}
+              alt={artistName}
+              class="w-full grayscale hover:grayscale-0 transition-all duration-700"
+            />
+          </div>
+        )
+      }
+
+      <!-- Content -->
+      <div>
+        <p class="text-amber-500 text-sm tracking-widest uppercase mb-4">
+          Biography
+        </p>
+        <h2 class="font-display text-4xl sm:text-5xl text-amber-50 mb-8">
+          {artistName}
+        </h2>
+
+        <div class="text-lg text-slate-400 leading-relaxed space-y-4 mb-10">
+          {bio.split("\n\n").map((paragraph) => <p>{paragraph}</p>)}
+        </div>
+
+        <!-- Awards -->
+        <div>
+          <p class="text-sm text-slate-500 uppercase tracking-wider mb-4">
+            Recognition
+          </p>
+          <div class="flex flex-wrap gap-3">
+            {
+              awards.map((award) => (
+                <span class="inline-flex items-center gap-2 px-4 py-2 bg-amber-500/10 border border-amber-500/20 text-amber-400 text-sm rounded-sm">
+                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                  </svg>
+                  {award}
+                </span>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

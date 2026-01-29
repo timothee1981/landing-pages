@@ -1,0 +1,95 @@
+---
+/**
+ * Bio2 - Card Layout
+ * Clean cards with image and text
+ * Best for: Minimal/Electronic aesthetic
+ */
+
+interface Props {
+  artistName: string;
+  bio: string;
+  shortBio?: string;
+  image?: string;
+  highlights?: string[];
+}
+
+const {
+  artistName,
+  bio,
+  shortBio,
+  image,
+  highlights = ["Producer", "DJ", "Sound Designer"],
+} = Astro.props;
+---
+
+<section id="bio" class="section bg-black">
+  <div class="container-narrow">
+    <!-- Section header -->
+    <div class="text-center mb-16">
+      <p
+        class="font-mono text-xs tracking-[0.3em] text-white/50 uppercase mb-4"
+      >
+        About
+      </p>
+      <div class="w-12 h-px bg-white/20 mx-auto"></div>
+    </div>
+
+    <!-- Main card -->
+    <div class="grid md:grid-cols-5 gap-8 items-center">
+      <!-- Image -->
+      {
+        image && (
+          <div class="md:col-span-2">
+            <div class="aspect-square bg-zinc-900 overflow-hidden">
+              <img
+                src={image}
+                alt={artistName}
+                class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+              />
+            </div>
+          </div>
+        )
+      }
+
+      <!-- Content -->
+      <div class={image ? "md:col-span-3" : "md:col-span-5"}>
+        <h2 class="font-mono text-3xl sm:text-4xl text-white mb-6">
+          {artistName}
+        </h2>
+
+        <!-- Highlights as tags -->
+        <div class="flex flex-wrap gap-2 mb-6">
+          {
+            highlights.map((highlight) => (
+              <span class="px-3 py-1 border border-white/20 text-white/60 text-xs font-mono tracking-wider">
+                {highlight}
+              </span>
+            ))
+          }
+        </div>
+
+        <!-- Bio text -->
+        <div class="space-y-4 font-mono text-sm text-white/70 leading-relaxed">
+          {shortBio && <p class="text-white text-base">{shortBio}</p>}
+          <p>{bio}</p>
+        </div>
+
+        <!-- Stats row -->
+        <div class="grid grid-cols-3 gap-4 mt-8 pt-8 border-t border-white/10">
+          <div>
+            <p class="font-mono text-2xl text-white">10+</p>
+            <p class="font-mono text-xs text-white/40">Years Active</p>
+          </div>
+          <div>
+            <p class="font-mono text-2xl text-white">50+</p>
+            <p class="font-mono text-xs text-white/40">Releases</p>
+          </div>
+          <div>
+            <p class="font-mono text-2xl text-white">30+</p>
+            <p class="font-mono text-xs text-white/40">Countries</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

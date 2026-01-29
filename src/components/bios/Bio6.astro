@@ -1,0 +1,121 @@
+---
+/**
+ * Bio6 - Stats + Story
+ * Fun, creative layout with stats and personal touch
+ * Best for: Indie, Creative, Alternative artists
+ */
+
+interface Props {
+  artistName: string;
+  bio: string;
+  funFacts?: { emoji: string; fact: string }[];
+  image?: string;
+}
+
+const {
+  artistName,
+  bio,
+  funFacts = [
+    { emoji: '🎸', fact: 'First guitar was a birthday gift at age 7' },
+    { emoji: '☕', fact: 'Writes best songs after 3 cups of coffee' },
+    { emoji: '🐱', fact: 'Has two cats named Bowie and Prince' },
+    { emoji: '📚', fact: 'Secretly writes poetry at 2am' }
+  ],
+  image
+} = Astro.props;
+---
+
+<section id="bio" class="section bg-slate-950">
+  <div class="container-wide">
+    <div class="grid lg:grid-cols-12 gap-8">
+      <!-- Main content -->
+      <div class="lg:col-span-7 lg:col-start-1">
+        <!-- Header with playful styling -->
+        <div class="mb-10">
+          <div class="inline-flex items-center gap-3 mb-4">
+            <span class="text-pink-400">✦</span>
+            <span class="text-sm text-pink-400 tracking-wider">WHO AM I?</span>
+            <span class="text-pink-400">✦</span>
+          </div>
+          
+          <h2 class="text-4xl sm:text-5xl font-bold text-white mb-6">
+            Hey, I'm{' '}
+            <span class="relative">
+              <span class="relative z-10 text-pink-400">{artistName}</span>
+              <span class="absolute -bottom-1 left-0 right-0 h-3 bg-pink-400/20 -rotate-1" />
+            </span>
+          </h2>
+        </div>
+        
+        <!-- Bio with creative typography -->
+        <div class="text-lg text-slate-300 leading-relaxed space-y-6 mb-10">
+          {bio.split('\n\n').map((paragraph, index) => (
+            <p class={index === 0 ? 'text-xl text-white' : ''}>
+              {paragraph}
+            </p>
+          ))}
+        </div>
+        
+        <!-- Fun facts cards -->
+        <div class="grid sm:grid-cols-2 gap-4">
+          {funFacts.map((fact, index) => (
+            <div 
+              class="p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors group"
+              style={`transform: rotate(${(index % 2 === 0 ? -1 : 1)}deg);`}
+            >
+              <span class="text-2xl mb-2 block group-hover:scale-110 transition-transform inline-block">
+                {fact.emoji}
+              </span>
+              <p class="text-sm text-slate-400">{fact.fact}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+      
+      <!-- Image column -->
+      <div class="lg:col-span-5">
+        {image ? (
+          <div class="relative lg:sticky lg:top-24">
+            <!-- Decorative elements -->
+            <div class="absolute -top-4 -left-4 w-24 h-24 border-2 border-dashed border-pink-400/30 rounded-2xl" />
+            <div class="absolute -bottom-4 -right-4 w-24 h-24 border-2 border-dashed border-violet-400/30 rounded-2xl" />
+            
+            <!-- Main image -->
+            <div class="relative rounded-2xl overflow-hidden transform rotate-2 hover:rotate-0 transition-transform duration-500">
+              <img 
+                src={image} 
+                alt={artistName}
+                class="w-full aspect-[4/5] object-cover"
+              />
+              
+              <!-- Color overlay -->
+              <div class="absolute inset-0 bg-gradient-to-t from-pink-500/30 via-transparent to-violet-500/20 mix-blend-overlay" />
+            </div>
+            
+            <!-- Floating stickers -->
+            <div class="absolute -top-6 right-8 px-4 py-2 bg-pink-500 text-white text-sm font-bold rounded-full transform -rotate-12 shadow-lg">
+              That's me! →
+            </div>
+            
+            <div class="absolute -bottom-4 left-8 px-3 py-1 bg-violet-500 text-white text-xs rounded-full transform rotate-6">
+              📸 @photographer
+            </div>
+          </div>
+        ) : (
+          <!-- Placeholder if no image -->
+          <div class="aspect-[4/5] rounded-2xl bg-gradient-to-br from-pink-500/20 to-violet-500/20 flex items-center justify-center">
+            <span class="text-6xl">🎵</span>
+          </div>
+        )}
+      </div>
+    </div>
+    
+    <!-- Bottom CTA -->
+    <div class="text-center mt-16">
+      <a href="#contact" class="inline-flex items-center gap-2 px-6 py-3 bg-pink-500 hover:bg-pink-400 text-white font-semibold rounded-full transition-all hover:scale-105">
+        <span>Let's be friends</span>
+        <span>💌</span>
+      </a>
+    </div>
+  </div>
+</section>

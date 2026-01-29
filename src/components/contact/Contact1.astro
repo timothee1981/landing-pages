@@ -1,0 +1,264 @@
+---
+/**
+ * Contact1 - Full Form (Resend Integration)
+ * Complete contact form with multiple fields
+ * Best for: Booking inquiries, Professional contact
+ */
+
+interface Props {
+  title?: string;
+  subtitle?: string;
+  showNewsletter?: boolean;
+  bookingEmail?: string;
+}
+
+const {
+  title = "Get in Touch",
+  subtitle = "Have a question, booking inquiry, or just want to say hi? Drop us a message and we'll get back to you soon.",
+  showNewsletter = true,
+  bookingEmail = "booking@artist.com",
+} = Astro.props;
+---
+
+<section id="contact" class="section bg-gradient-to-b from-zinc-900 to-black">
+  <div class="container-narrow">
+    <div class="text-center mb-12">
+      <span class="text-caption">Contact</span>
+      <h2 class="heading-lg text-white mt-4 mb-4">{title}</h2>
+      <p class="text-body text-zinc-400 max-w-xl mx-auto">{subtitle}</p>
+    </div>
+
+    <!-- Contact form -->
+    <form id="contact-form" class="space-y-6 max-w-xl mx-auto">
+      <!-- Honeypot field - hidden from humans, bots will fill it -->
+      <div class="hidden" aria-hidden="true">
+        <label for="_gotcha">Don't fill this out</label>
+        <input
+          type="text"
+          id="_gotcha"
+          name="_gotcha"
+          tabindex="-1"
+          autocomplete="off"
+        />
+      </div>
+      <!-- Timestamp for timing check -->
+      <input type="hidden" id="_timestamp" name="_timestamp" />
+
+      <!-- Name & Email row -->
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div>
+          <label for="name" class="block text-sm font-medium text-zinc-400 mb-2"
+            >Name *</label
+          >
+          <input
+            type="text"
+            id="name"
+            name="name"
+            required
+            class="input"
+            placeholder="Your name"
+          />
+        </div>
+        <div>
+          <label
+            for="email"
+            class="block text-sm font-medium text-zinc-400 mb-2">Email *</label
+          >
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            class="input"
+            placeholder="you@example.com"
+          />
+        </div>
+      </div>
+
+      <!-- Subject -->
+      <div>
+        <label
+          for="subject"
+          class="block text-sm font-medium text-zinc-400 mb-2">Subject</label
+        >
+        <select id="subject" name="subject" class="input">
+          <option value="general">General Inquiry</option>
+          <option value="booking">Booking Request</option>
+          <option value="press">Press / Media</option>
+          <option value="collaboration">Collaboration</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+
+      <!-- Message -->
+      <div>
+        <label
+          for="message"
+          class="block text-sm font-medium text-zinc-400 mb-2">Message *</label
+        >
+        <textarea
+          id="message"
+          name="message"
+          rows="5"
+          required
+          class="input resize-none"
+          placeholder="Tell us what's on your mind..."></textarea>
+      </div>
+
+      <!-- Newsletter opt-in -->
+      {
+        showNewsletter && (
+          <div class="flex items-start gap-3">
+            <input
+              type="checkbox"
+              id="newsletter"
+              name="newsletter"
+              class="mt-1 w-5 h-5 rounded border-zinc-600 bg-zinc-800 text-theme-primary focus:ring-theme-primary"
+            />
+            <label for="newsletter" class="text-sm text-zinc-400">
+              Keep me updated with news, releases, and tour dates
+            </label>
+          </div>
+        )
+      }
+
+      <!-- Submit button -->
+      <button type="submit" class="btn-primary w-full group">
+        <span id="submit-text">Send Message</span>
+        <svg
+          id="submit-loading"
+          class="w-5 h-5 ml-2 animate-spin hidden"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <circle
+            class="opacity-25"
+            cx="12"
+            cy="12"
+            r="10"
+            stroke="currentColor"
+            stroke-width="4"></circle>
+          <path
+            class="opacity-75"
+            fill="currentColor"
+            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+          ></path>
+        </svg>
+        <svg
+          id="submit-success"
+          class="w-5 h-5 ml-2 hidden"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M5 13l4 4L19 7"></path>
+        </svg>
+      </button>
+
+      <!-- Status message -->
+      <p id="form-status" class="text-center text-sm hidden"></p>
+    </form>
+
+    <!-- Alternative contact methods -->
+    <div class="mt-12 pt-12 border-t border-zinc-800">
+      <div class="grid sm:grid-cols-2 gap-6 text-center">
+        <div class="p-6 rounded-2xl bg-white/5">
+          <h3 class="text-white font-semibold mb-2">Booking Inquiries</h3>
+          <a
+            href={`mailto:${bookingEmail}`}
+            class="text-theme-primary hover:underline"
+          >
+            {bookingEmail}
+          </a>
+        </div>
+        <div class="p-6 rounded-2xl bg-white/5">
+          <h3 class="text-white font-semibold mb-2">Response Time</h3>
+          <p class="text-zinc-400">Usually within 24-48 hours</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const form = document.getElementById("contact-form") as HTMLFormElement;
+  const submitText = document.getElementById("submit-text");
+  const submitLoading = document.getElementById("submit-loading");
+  const submitSuccess = document.getElementById("submit-success");
+  const formStatus = document.getElementById("form-status");
+  const timestampField = document.getElementById(
+    "_timestamp",
+  ) as HTMLInputElement;
+
+  // Set timestamp when page loads (for bot timing detection)
+  if (timestampField) {
+    timestampField.value = Date.now().toString();
+  }
+
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    // Show loading state
+    if (submitText) submitText.textContent = "Sending...";
+    submitLoading?.classList.remove("hidden");
+
+    const formData = new FormData(form);
+    const data: Record<string, any> = Object.fromEntries(formData.entries());
+
+    // Convert timestamp to number for the API
+    if (data._timestamp) {
+      data._timestamp = parseInt(data._timestamp as string, 10);
+    }
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        // Success state
+        submitLoading?.classList.add("hidden");
+        submitSuccess?.classList.remove("hidden");
+        if (submitText) submitText.textContent = "Sent!";
+
+        if (formStatus) {
+          formStatus.textContent =
+            "✓ Thanks for reaching out! We'll be in touch soon.";
+          formStatus.className = "text-center text-sm text-green-500";
+          formStatus.classList.remove("hidden");
+        }
+
+        form.reset();
+        // Reset timestamp for next submission
+        if (timestampField) timestampField.value = Date.now().toString();
+
+        // Reset button after 3 seconds
+        setTimeout(() => {
+          submitSuccess?.classList.add("hidden");
+          if (submitText) submitText.textContent = "Send Message";
+        }, 3000);
+      } else {
+        throw new Error(result.error || "Failed to send");
+      }
+    } catch (error: any) {
+      submitLoading?.classList.add("hidden");
+      if (submitText) submitText.textContent = "Send Message";
+
+      if (formStatus) {
+        formStatus.textContent =
+          error.message ||
+          "✗ Something went wrong. Please try again or email us directly.";
+        formStatus.className = "text-center text-sm text-red-500";
+        formStatus.classList.remove("hidden");
+      }
+    }
+  });
+</script>

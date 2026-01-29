@@ -1,0 +1,140 @@
+---
+/**
+ * Landing Page 6 - Indie/Creative Style
+ * Artistic, unconventional design for indie artists
+ * Theme: Muted pastels (pink, violet)
+ */
+
+import LandingLayout from "../layouts/LandingLayout.astro";
+import Navigation from "../components/shared/Navigation.astro";
+import Hero6 from "../components/heroes/Hero6.astro";
+import Bio6 from "../components/bios/Bio6.astro";
+import Release6 from "../components/releases/Release6.astro";
+import Social3 from "../components/social/Social3.astro";
+import Contact2 from "../components/contact/Contact2.astro";
+import Footer from "../components/shared/Footer.astro";
+
+const config = {
+  artistName: "Lunar Moths",
+  tagline: "Dream pop for insomniacs. Bedroom recordings for the universe.",
+  genre: "Indie / Dream Pop",
+  seo: {
+    title: "Lunar Moths | Indie Dream Pop",
+    description:
+      "Lunar Moths - Indie dream pop duo making music for late nights and early mornings. New music video out now.",
+    keywords: [
+      "lunar moths",
+      "indie",
+      "dream pop",
+      "bedroom pop",
+      "indie music",
+    ],
+  },
+};
+---
+
+<LandingLayout
+  title={config.seo.title}
+  description={config.seo.description}
+  theme="indie"
+  keywords={config.seo.keywords}
+>
+  <Navigation
+    artistName={config.artistName}
+    ctaText="Listen ✨"
+    ctaUrl="#featured-release"
+  />
+
+  <main>
+    <Hero6
+      artistName={config.artistName}
+      tagline={config.tagline}
+      genre={config.genre}
+      ctaText="Watch New Video"
+      ctaUrl="#featured-release"
+      secondaryCtaText="say hi"
+      secondaryCtaUrl="#contact"
+      heroImage="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=1200&q=80"
+    />
+
+    <Bio6
+      artistName={config.artistName}
+      bio={`We're Lunar Moths - a duo making music in a tiny apartment in Portland. Our songs are born from 3am recording sessions, too much coffee, and the kind of conversations you only have when the rest of the world is asleep.
+
+We started posting songs on SoundCloud in 2021, never expecting anyone to listen. Three years later, we're still making music the same way - just us, a laptop, and whatever instruments we can find at thrift stores.`}
+      funFacts={[
+        { emoji: "🌙", fact: "Most songs written between 2-5am" },
+        { emoji: "☕", fact: "Powered by an unhealthy amount of cold brew" },
+        { emoji: "🎸", fact: "$40 thrift store guitar on every track" },
+        { emoji: "🐱", fact: "Our cat Luna is the unofficial third member" },
+      ]}
+      image="https://images.unsplash.com/photo-1529518969858-8baa65152fc8?w=600&q=80"
+    />
+
+    <Release6
+      videoTitle="Sleepwalking"
+      youtubeId="YOUR_VIDEO_ID"
+      releaseDate="January 2024"
+      description="Our most personal video yet. Shot over 3 nights in Portland with our friends. No budget, just vibes."
+      behindTheScenes="We filmed this entirely on an iPhone with our friends. The diner scene was shot at 4am when we were the only customers."
+      credits={[
+        { role: "Director", name: "Maya & Sol" },
+        { role: "Cinematography", name: "Our Friend Jake" },
+        { role: "Starring", name: "Luna (the cat)" },
+      ]}
+    />
+
+    <Social3
+      title="Come hang out ✨"
+      instagramHandle="@lunarmothsband"
+      posts={[
+        {
+          image:
+            "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=300&q=80",
+          likes: "2.3K",
+          url: "#",
+        },
+        {
+          image:
+            "https://images.unsplash.com/photo-1485579149621-3123dd979885?w=300&q=80",
+          likes: "1.8K",
+          url: "#",
+        },
+        {
+          image:
+            "https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=300&q=80",
+          likes: "3.1K",
+          url: "#",
+        },
+        {
+          image:
+            "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=300&q=80",
+          likes: "2.5K",
+          url: "#",
+        },
+        {
+          image:
+            "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&q=80",
+          likes: "1.9K",
+          url: "#",
+        },
+        {
+          image:
+            "https://images.unsplash.com/photo-1524368535928-5b5e00ddc76b?w=300&q=80",
+          likes: "2.7K",
+          url: "#",
+        },
+      ]}
+    />
+
+    <Contact2
+      title="join the midnight club 🌙"
+      subtitle="Get emails from us sometimes. New music, tour stuff, random thoughts at 3am."
+      incentive="✉️ We'll send you a secret track that's not on streaming"
+      buttonText="join ✨"
+      placeholder="your email..."
+    />
+  </main>
+
+  <Footer artistName={config.artistName} />
+</LandingLayout>

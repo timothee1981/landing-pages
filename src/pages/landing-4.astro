@@ -1,0 +1,141 @@
+---
+/**
+ * Landing Page 4 - Urban/Hip-hop Style
+ * Dynamic, vibrant design for hip-hop/R&B artists
+ * Theme: Neon gradients (violet, cyan)
+ */
+
+import LandingLayout from "../layouts/LandingLayout.astro";
+import Navigation from "../components/shared/Navigation.astro";
+import Hero4 from "../components/heroes/Hero4.astro";
+import Bio4 from "../components/bios/Bio4.astro";
+import Release4 from "../components/releases/Release4.astro";
+import Social2 from "../components/social/Social2.astro";
+import Contact2 from "../components/contact/Contact2.astro";
+import Footer from "../components/shared/Footer.astro";
+
+const config = {
+  artistName: "KYRO",
+  tagline: "From the streets to the stars. No limits.",
+  genre: "Hip-Hop / R&B",
+  seo: {
+    title: "KYRO | Official Site",
+    description:
+      "KYRO - Rising hip-hop artist with 500M+ streams. New album 'Ascension' out now.",
+    keywords: ["kyro", "hip hop", "rap", "r&b", "new music"],
+  },
+};
+---
+
+<LandingLayout
+  title={config.seo.title}
+  description={config.seo.description}
+  theme="urban"
+  keywords={config.seo.keywords}
+>
+  <Navigation
+    artistName={config.artistName}
+    ctaText="Stream Now"
+    ctaUrl="#featured-release"
+  />
+
+  <main>
+    <Hero4
+      artistName={config.artistName}
+      tagline={config.tagline}
+      genre={config.genre}
+      ctaText="New Album Out Now"
+      ctaUrl="#featured-release"
+      secondaryCtaText="Watch Video"
+      secondaryCtaUrl="#"
+      stats={[
+        { label: "Monthly Listeners", value: "5.2M" },
+        { label: "Total Streams", value: "500M+" },
+        { label: "Followers", value: "2.1M" },
+      ]}
+    />
+
+    <Bio4
+      artistName={config.artistName}
+      bio="From a one-bedroom apartment in Atlanta to sold-out arenas worldwide, KYRO's journey is a testament to raw talent and relentless hustle. Known for genre-bending production and introspective lyrics, KYRO has collaborated with the biggest names in hip-hop and continues to push boundaries with every release. The new album 'Ascension' represents the next chapter in an already legendary career."
+      images={[
+        "https://images.unsplash.com/photo-1547355253-ff0740f6e8c1?w=400&q=80",
+        "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&q=80",
+        "https://images.unsplash.com/photo-1501386761578-eac5c94b800a?w=400&q=80",
+        "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=400&q=80",
+      ]}
+      stats={[
+        { label: "Streams", value: "500M+" },
+        { label: "Monthly Listeners", value: "5.2M" },
+        { label: "Awards", value: "15" },
+      ]}
+    />
+
+    <Release4
+      sectionTitle="Discography"
+      releases={[
+        {
+          title: "Ascension",
+          type: "Album",
+          year: "2024",
+          coverImage:
+            "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=400&q=80",
+          spotifyUrl: "#",
+          streams: "50M+",
+        },
+        {
+          title: "Midnight",
+          type: "Single",
+          year: "2024",
+          coverImage:
+            "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=400&q=80",
+          spotifyUrl: "#",
+          streams: "30M+",
+        },
+        {
+          title: "Genesis",
+          type: "Album",
+          year: "2023",
+          coverImage:
+            "https://images.unsplash.com/photo-1571330735066-03aaa9429d89?w=400&q=80",
+          spotifyUrl: "#",
+          streams: "200M+",
+        },
+        {
+          title: "The Come Up",
+          type: "Mixtape",
+          year: "2022",
+          coverImage:
+            "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=400&q=80",
+          spotifyUrl: "#",
+          streams: "150M+",
+        },
+      ]}
+    />
+
+    <Social2
+      title="Join the Movement"
+      subtitle="Stay connected for exclusive drops, tour announcements, and behind-the-scenes content."
+      socialLinks={[
+        { platform: "Spotify", url: "#", followers: "5.2M", color: "#1DB954" },
+        {
+          platform: "Instagram",
+          url: "#",
+          followers: "2.1M",
+          color: "#E4405F",
+        },
+        { platform: "YouTube", url: "#", followers: "1.8M", color: "#FF0000" },
+        { platform: "TikTok", url: "#", followers: "3.5M", color: "#000000" },
+      ]}
+    />
+
+    <Contact2
+      title="Get Exclusive Access"
+      subtitle="Be the first to know about new drops, tour dates, and exclusive merch."
+      incentive="🔥 Subscribers get early access to concert tickets"
+      buttonText="Join Now"
+    />
+  </main>
+
+  <Footer artistName={config.artistName} />
+</LandingLayout>

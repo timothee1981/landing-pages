@@ -1,0 +1,35 @@
+{
+  "name": "music-landing-pages",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "6 High-conversion landing page variations for musicians, artists, and recording studios",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/tailwind": "^6.0.2",
+    "astro": "^5.16.11",
+    "resend": "^6.8.0",
+    "tailwindcss": "^3.0.24"
+  },
+  "devDependencies": {
+    "@types/node": "^25.0.9",
+    "terser": "^5.31.0",
+    "typescript": "^5.0.0"
+  },
+  "keywords": [
+    "astro",
+    "landing-page",
+    "music",
+    "artist",
+    "musician",
+    "recording-studio",
+    "high-conversion"
+  ],
+  "author": "",
+  "license": "MIT"
+}

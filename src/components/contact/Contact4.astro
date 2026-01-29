@@ -1,0 +1,108 @@
+---
+/**
+ * Contact4 - Simple Mailto Contact Component
+ *
+ * ✅ NO CODE REQUIRED - Just update the email below!
+ * ✅ NO API SETUP
+ * ✅ NO .env FILE NEEDED
+ * ✅ Works immediately
+ *
+ * How it works: Opens the visitor's email app (Gmail, Outlook, Apple Mail, etc.)
+ * with your email address pre-filled.
+ *
+ * Limitation: Less "professional" than a form, but 100% reliable and free.
+ */
+
+// ========================================
+// 🎯 ONLY CHANGE THIS LINE:
+// ========================================
+const contactEmail = "your-email@example.com";
+// ========================================
+
+interface Props {
+  title?: string;
+  subtitle?: string;
+  buttonText?: string;
+}
+
+const {
+  title = "Get In Touch",
+  subtitle = "Have a question or want to work together? Send me an email!",
+  buttonText = "Send Email",
+} = Astro.props;
+---
+
+<section class="py-20 bg-gradient-to-b from-gray-900 to-black">
+  <div class="container mx-auto px-4">
+    <div class="max-w-2xl mx-auto text-center">
+      <!-- Header -->
+      <h2 class="text-4xl md:text-5xl font-bold text-white mb-4">
+        {title}
+      </h2>
+      <p class="text-gray-400 text-lg mb-10">
+        {subtitle}
+      </p>
+
+      <!-- Simple Email Button -->
+      <div class="space-y-6">
+        <a
+          href={`mailto:${contactEmail}`}
+          class="inline-flex items-center gap-3 px-8 py-4 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-purple-500/30"
+        >
+          <svg
+            class="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+            ></path>
+          </svg>
+          {buttonText}
+        </a>
+
+        <!-- Email displayed for reference -->
+        <p class="text-gray-500 text-sm">
+          or email directly:
+          <a
+            href={`mailto:${contactEmail}`}
+            class="text-purple-400 hover:text-purple-300 underline"
+          >
+            {contactEmail}
+          </a>
+        </p>
+      </div>
+
+      <!-- Optional: Social links hint -->
+      <div class="mt-12 pt-8 border-t border-gray-800">
+        <p class="text-gray-500 text-sm">
+          You can also reach me on social media ↓
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Subtle animation on the email icon */
+  a:hover svg {
+    animation: wiggle 0.5s ease-in-out;
+  }
+
+  @keyframes wiggle {
+    0%,
+    100% {
+      transform: rotate(0deg);
+    }
+    25% {
+      transform: rotate(-10deg);
+    }
+    75% {
+      transform: rotate(10deg);
+    }
+  }
+</style>

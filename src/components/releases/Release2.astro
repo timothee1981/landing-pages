@@ -1,0 +1,98 @@
+---
+/**
+ * Release2 - Album Grid with Video Support
+ * Grid of album/single artwork with optional video previews
+ * Best for: Artists with multiple releases
+ */
+
+interface Props {
+  sectionTitle?: string;
+  releases?: {
+    title: string;
+    year: string;
+    coverImage: string;
+    spotifyUrl?: string;
+    videoUrl?: string;
+  }[];
+}
+
+const {
+  sectionTitle = 'Discography',
+  releases = [
+    { title: 'Album One', year: '2024', coverImage: '/landing/images/album-1.jpg', spotifyUrl: '#' },
+    { title: 'Album Two', year: '2023', coverImage: '/landing/images/album-2.jpg', spotifyUrl: '#' },
+    { title: 'EP Release', year: '2022', coverImage: '/landing/images/album-3.jpg', spotifyUrl: '#' },
+    { title: 'Debut Single', year: '2021', coverImage: '/landing/images/album-4.jpg', spotifyUrl: '#' }
+  ]
+} = Astro.props;
+---
+
+<section id="featured-release" class="section bg-black">
+  <div class="container-wide">
+    <!-- Header -->
+    <div class="text-center mb-16">
+      <p class="font-mono text-xs tracking-[0.3em] text-white/50 uppercase mb-4">Music</p>
+      <h2 class="font-mono text-4xl sm:text-5xl text-white">{sectionTitle}</h2>
+    </div>
+    
+    <!-- Album grid -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+      {releases.map((release, index) => (
+        <div class="group relative">
+          <!-- Album artwork / Video -->
+          <div class="aspect-square bg-zinc-900 overflow-hidden mb-4 relative">
+            {release.videoUrl ? (
+              <video 
+                src={release.videoUrl}
+                class="w-full h-full object-cover"
+                muted
+                loop
+                playsinline
+                preload="metadata"
+                onmouseenter="this.play()"
+                onmouseleave="this.pause(); this.currentTime = 0;"
+              />
+            ) : (
+              <img 
+                src={release.coverImage} 
+                alt={release.title}
+                class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500"
+                loading="lazy"
+              />
+            )}
+            
+            <!-- Play overlay -->
+            <a 
+              href={release.spotifyUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"
+            >
+              <div class="w-14 h-14 rounded-full bg-white flex items-center justify-center transform scale-50 group-hover:scale-100 transition-transform">
+                <svg class="w-6 h-6 text-black ml-1" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+              </div>
+            </a>
+          </div>
+          
+          <!-- Info -->
+          <div class="font-mono">
+            <h3 class="text-white text-sm sm:text-base group-hover:text-white/80 transition-colors truncate">
+              {release.title}
+            </h3>
+            <p class="text-white/40 text-xs">{release.year}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+    
+    <!-- View all link -->
+    <div class="text-center mt-12">
+      <a href="#" class="inline-flex items-center gap-2 font-mono text-sm text-white/50 hover:text-white transition-colors group">
+        <span>View All Releases</span>
+        <span class="w-4 h-px bg-current group-hover:w-8 transition-all" />
+      </a>
+    </div>
+  </div>
+</section>

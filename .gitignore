@@ -1,0 +1,38 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Environment variables (IMPORTANT: contains API keys!)
+.env
+.env.local
+.env.production
+
+# IDE and editor files
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Astro cache
+.astro/
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Optional: Local development files
+.vercel/
+.netlify/

@@ -1,0 +1,115 @@
+---
+/**
+ * Landing Page 1 - Bold/Rock Style
+ * High-energy, dramatic design for rock/metal artists
+ * Theme: Dark + Red accents
+ */
+
+import LandingLayout from "../layouts/LandingLayout.astro";
+import Navigation from "../components/shared/Navigation.astro";
+import Hero1 from "../components/heroes/Hero1.astro";
+import Bio1 from "../components/bios/Bio1.astro";
+import Release1 from "../components/releases/Release1.astro";
+import Social1 from "../components/social/Social1.astro";
+import Contact1 from "../components/contact/Contact1.astro";
+import Footer from "../components/shared/Footer.astro";
+
+// Configuration - Customize for your artist
+const config = {
+  artistName: "MIDNIGHT FURY",
+  tagline: "Raw power. Unfiltered emotion. Pure rock.",
+  genre: "Hard Rock / Metal",
+  seo: {
+    title: "MIDNIGHT FURY | Official Landing Page",
+    description:
+      "Experience the raw power of MIDNIGHT FURY. Listen to the latest album, get tour dates, and join the revolution.",
+    keywords: ["midnight fury", "rock band", "metal", "hard rock", "new album"],
+  },
+};
+---
+
+<LandingLayout
+  title={config.seo.title}
+  description={config.seo.description}
+  theme="rock"
+  keywords={config.seo.keywords}
+>
+  <Navigation
+    artistName={config.artistName}
+    ctaText="Listen Now"
+    ctaUrl="#featured-release"
+  />
+
+  <main>
+    <Hero1
+      artistName={config.artistName}
+      tagline={config.tagline}
+      genre={config.genre}
+      ctaText="Play New Album"
+      ctaUrl="#featured-release"
+      secondaryCtaText="Get Tickets"
+      secondaryCtaUrl="#contact"
+      backgroundImage="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=1920&q=80"
+    />
+
+    <Bio1
+      artistName={config.artistName}
+      bio="Born from the underground scene, MIDNIGHT FURY has been delivering raw, uncompromising rock since 2018. With three studio albums and over 500 live shows across 30 countries, we've built a reputation for explosive performances and music that speaks to the soul."
+      milestones={[
+        {
+          year: "2018",
+          title: "Formation",
+          description: "Band formed in a basement in Detroit",
+        },
+        {
+          year: "2019",
+          title: "Debut Album",
+          description: '"Rise from Ashes" hits #5 on rock charts',
+        },
+        {
+          year: "2021",
+          title: "World Tour",
+          description: "200+ shows, 30 countries, 500K fans",
+        },
+        {
+          year: "2024",
+          title: "New Era",
+          description: 'Third album "Eternal Fire" drops now',
+        },
+      ]}
+      image="https://images.unsplash.com/photo-1598387993441-a364f854c3e1?w=800&q=80"
+    />
+
+    <Release1
+      releaseTitle="ETERNAL FIRE"
+      releaseType="album"
+      description="12 tracks of pure adrenaline. Our most ambitious album yet."
+      spotifyEmbed="https://open.spotify.com/embed/album/4LH4d3cOWNNsVw41Gqt2kv"
+      streamingLinks={[
+        { platform: "Spotify", url: "#" },
+        { platform: "Apple Music", url: "#" },
+        { platform: "YouTube Music", url: "#" },
+        { platform: "Amazon Music", url: "#" },
+      ]}
+    />
+
+    <Social1
+      title="Join the Revolution"
+      socialLinks={[
+        { platform: "spotify", url: "#" },
+        { platform: "instagram", url: "#" },
+        { platform: "youtube", url: "#" },
+        { platform: "twitter", url: "#" },
+        { platform: "tiktok", url: "#" },
+      ]}
+    />
+
+    <Contact1
+      title="Book MIDNIGHT FURY"
+      subtitle="Available for festivals, tours, and private events. Let's create something unforgettable."
+      bookingEmail="booking@midnightfury.com"
+    />
+  </main>
+
+  <Footer artistName={config.artistName} />
+</LandingLayout>

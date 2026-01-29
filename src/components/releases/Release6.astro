@@ -1,0 +1,155 @@
+---
+/**
+ * Release6 - Music Video Embed
+ * YouTube video focus with supporting content
+ * Best for: Indie, Creative, Visual artists
+ */
+
+interface Props {
+  videoTitle: string;
+  youtubeId: string;
+  releaseDate?: string;
+  description?: string;
+  behindTheScenes?: string;
+  credits?: { role: string; name: string }[];
+}
+
+const {
+  videoTitle,
+  youtubeId,
+  releaseDate = "January 2024",
+  description,
+  behindTheScenes,
+  credits = [
+    { role: "Director", name: "Creative Director Name" },
+    { role: "Producer", name: "Producer Name" },
+    { role: "Cinematography", name: "DP Name" },
+  ],
+} = Astro.props;
+---
+
+<section id="featured-release" class="section bg-slate-950">
+  <div class="container-wide">
+    <!-- Header with playful styling -->
+    <div class="text-center mb-10">
+      <div
+        class="inline-flex items-center gap-2 px-4 py-2 bg-pink-500/10 rounded-full mb-4"
+      >
+        <span class="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
+        <span class="text-sm text-pink-400 font-medium">New Video</span>
+      </div>
+      <h2 class="text-4xl sm:text-5xl font-bold text-white">{videoTitle}</h2>
+      <p class="text-slate-500 mt-2">Released {releaseDate}</p>
+    </div>
+
+    <!-- Video embed -->
+    <div class="relative max-w-5xl mx-auto mb-12">
+      <!-- Decorative frame -->
+      <div
+        class="absolute -inset-3 bg-gradient-to-r from-pink-500/20 via-violet-500/20 to-pink-500/20 rounded-2xl blur-xl"
+      >
+      </div>
+
+      <div
+        class="relative aspect-video rounded-2xl overflow-hidden shadow-2xl border border-white/10"
+      >
+        <iframe
+          src={`https://www.youtube.com/embed/${youtubeId}?rel=0&modestbranding=1`}
+          title={videoTitle}
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          class="w-full h-full"
+          loading="lazy"></iframe>
+      </div>
+
+      <!-- Floating reaction badges -->
+      <div
+        class="absolute -top-4 -right-4 px-3 py-1 bg-pink-500 text-white text-xs font-bold rounded-full transform rotate-12 shadow-lg"
+      >
+        🔥 Trending
+      </div>
+    </div>
+
+    <!-- Video info grid -->
+    <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+      <!-- Description -->
+      <div class="p-6 rounded-2xl bg-white/5 border border-white/10">
+        <h3
+          class="text-lg font-semibold text-white mb-4 flex items-center gap-2"
+        >
+          <span>📝</span> About This Video
+        </h3>
+        <p class="text-slate-400 leading-relaxed">
+          {
+            description ||
+              "An immersive visual experience that brings the music to life through stunning cinematography and creative direction."
+          }
+        </p>
+
+        {
+          behindTheScenes && (
+            <div class="mt-6 pt-6 border-t border-white/10">
+              <h4 class="text-sm text-pink-400 font-medium mb-2">
+                Behind the Scenes
+              </h4>
+              <p class="text-slate-500 text-sm">{behindTheScenes}</p>
+            </div>
+          )
+        }
+      </div>
+
+      <!-- Credits -->
+      <div class="p-6 rounded-2xl bg-white/5 border border-white/10">
+        <h3
+          class="text-lg font-semibold text-white mb-4 flex items-center gap-2"
+        >
+          <span>🎬</span> Credits
+        </h3>
+        <div class="space-y-4">
+          {
+            credits.map((credit) => (
+              <div class="flex justify-between items-center">
+                <span class="text-slate-500 text-sm">{credit.role}</span>
+                <span class="text-white font-medium">{credit.name}</span>
+              </div>
+            ))
+          }
+        </div>
+
+        <!-- Share buttons -->
+        <div class="mt-6 pt-6 border-t border-white/10">
+          <p class="text-sm text-slate-500 mb-3">Share this video</p>
+          <div class="flex gap-2">
+            <button
+              class="flex-1 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-white text-sm transition-colors"
+            >
+              Twitter
+            </button>
+            <button
+              class="flex-1 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-white text-sm transition-colors"
+            >
+              Facebook
+            </button>
+            <button
+              class="flex-1 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-white text-sm transition-colors"
+            >
+              Copy Link
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="text-center mt-12">
+      <a
+        href="#"
+        class="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-pink-500 to-violet-500 text-white font-semibold rounded-full hover:scale-105 transition-transform"
+      >
+        <span>Watch More Videos</span>
+        <span>→</span>
+      </a>
+    </div>
+  </div>
+</section>

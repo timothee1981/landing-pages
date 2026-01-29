@@ -1,0 +1,86 @@
+---
+/**
+ * Shared Navigation Component
+ * Minimal sticky navigation for landing pages
+ */
+
+interface Props {
+  artistName: string;
+  logoUrl?: string;
+  ctaText?: string;
+  ctaUrl?: string;
+  transparent?: boolean;
+}
+
+const {
+  artistName,
+  logoUrl,
+  ctaText = "Listen Now",
+  ctaUrl = "#featured-release",
+  transparent = true,
+} = Astro.props;
+---
+
+<nav
+  class={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${transparent ? "bg-transparent" : "bg-black/90 backdrop-blur-lg"}`}
+  id="main-nav"
+>
+  <div class="container-wide">
+    <div class="flex items-center justify-between h-16 sm:h-20">
+      <!-- Logo/Name -->
+      <a href="#" class="flex items-center gap-3">
+        {
+          logoUrl ? (
+            <img src={logoUrl} alt={artistName} class="h-8 sm:h-10 w-auto" />
+          ) : (
+            <span class="text-white font-bold text-lg sm:text-xl">
+              {artistName}
+            </span>
+          )
+        }
+      </a>
+
+      <!-- Nav links (hidden on mobile) -->
+      <div class="hidden md:flex items-center gap-8">
+        <a
+          href="#bio"
+          class="text-sm text-white/70 hover:text-white transition-colors"
+          >About</a
+        >
+        <a
+          href="#featured-release"
+          class="text-sm text-white/70 hover:text-white transition-colors"
+          >Music</a
+        >
+        <a
+          href="#contact"
+          class="text-sm text-white/70 hover:text-white transition-colors"
+          >Contact</a
+        >
+      </div>
+
+      <!-- CTA Button -->
+      <a
+        href={ctaUrl}
+        class="px-5 py-2 bg-theme-primary text-theme-dark text-sm font-semibold rounded-full hover:opacity-90 transition-opacity"
+      >
+        {ctaText}
+      </a>
+    </div>
+  </div>
+</nav>
+
+<script>
+  // Add background on scroll
+  const nav = document.getElementById("main-nav");
+
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 100) {
+      nav?.classList.remove("bg-transparent");
+      nav?.classList.add("bg-black/90", "backdrop-blur-lg");
+    } else {
+      nav?.classList.add("bg-transparent");
+      nav?.classList.remove("bg-black/90", "backdrop-blur-lg");
+    }
+  });
+</script>

@@ -1,0 +1,119 @@
+---
+/**
+ * Bio4 - Image Gallery + Text
+ * Multiple images with scrolling gallery
+ * Best for: Hip-hop, R&B, Urban artists
+ */
+
+interface Props {
+  artistName: string;
+  bio: string;
+  images?: string[];
+  stats?: { label: string; value: string }[];
+}
+
+const {
+  artistName,
+  bio,
+  images = [
+    "/landing/images/gallery-1.jpg",
+    "/landing/images/gallery-2.jpg",
+    "/landing/images/gallery-3.jpg",
+    "/landing/images/gallery-4.jpg",
+  ],
+  stats = [
+    { label: "Streams", value: "500M+" },
+    { label: "Monthly Listeners", value: "5M+" },
+    { label: "Awards", value: "12" },
+  ],
+} = Astro.props;
+---
+
+<section
+  id="bio"
+  class="section bg-gradient-to-b from-slate-950 to-violet-950/20"
+>
+  <div class="container-wide">
+    <!-- Image gallery - horizontal scroll -->
+    <div class="relative mb-16 -mx-4 sm:mx-0">
+      <div
+        class="flex flex-col md:flex-row gap-6 md:gap-4 overflow-x-auto pb-4 scrollbar-hide snap-x snap-mandatory px-4 sm:px-0"
+      >
+        {
+          images.map((img, index) => (
+            <div
+              class="flex-shrink-0 w-80 md:w-64 sm:w-80 aspect-[3/4] rounded-2xl overflow-hidden snap-center"
+              style={`transform: rotate(${(index - 1.5) * 2}deg);`}
+            >
+              <img
+                src={img}
+                alt={`${artistName} photo ${index + 1}`}
+                class="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
+              />
+            </div>
+          ))
+        }
+      </div>
+
+      <!-- Gradient overlays for scroll indication -->
+      <div
+        class="absolute left-0 top-0 bottom-4 w-20 bg-gradient-to-r from-slate-950 to-transparent pointer-events-none hidden sm:block"
+      >
+      </div>
+      <div
+        class="absolute right-0 top-0 bottom-4 w-20 bg-gradient-to-l from-slate-950 to-transparent pointer-events-none hidden sm:block"
+      >
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="max-w-4xl mx-auto">
+      <!-- Stats bar -->
+      <div
+        class="grid grid-cols-3 gap-4 mb-12 p-6 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10"
+      >
+        {
+          stats.map((stat) => (
+            <div class="text-center">
+              <p class="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-violet-400 to-cyan-400 bg-clip-text text-transparent">
+                {stat.value}
+              </p>
+              <p class="text-sm text-slate-400 mt-1">{stat.label}</p>
+            </div>
+          ))
+        }
+      </div>
+
+      <!-- Artist name and bio -->
+      <div class="text-center">
+        <h2 class="text-4xl sm:text-5xl font-bold text-white mb-8">
+          About <span
+            class="bg-gradient-to-r from-violet-400 to-cyan-400 bg-clip-text text-transparent"
+            >{artistName}</span
+          >
+        </h2>
+
+        <p
+          class="text-lg sm:text-xl text-slate-300 leading-relaxed max-w-3xl mx-auto"
+        >
+          {bio}
+        </p>
+
+        <!-- Press logos -->
+        <div class="mt-12 pt-8 border-t border-white/10">
+          <p class="text-xs uppercase tracking-wider text-slate-500 mb-6">
+            As Featured In
+          </p>
+          <div
+            class="flex flex-wrap items-center justify-center gap-8 opacity-50"
+          >
+            <span class="text-xl font-bold text-white">Billboard</span>
+            <span class="text-xl font-bold text-white">Complex</span>
+            <span class="text-xl font-bold text-white">Pitchfork</span>
+            <span class="text-xl font-bold text-white">XXL</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

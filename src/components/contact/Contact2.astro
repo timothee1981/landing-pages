@@ -1,0 +1,247 @@
+---
+/**
+ * Contact2 - Email Capture Only (Newsletter Focus)
+ * Simple email signup for high conversion
+ * Best for: Building mailing list, Pre-save campaigns
+ */
+
+interface Props {
+  title?: string;
+  subtitle?: string;
+  incentive?: string;
+  placeholder?: string;
+  buttonText?: string;
+}
+
+const {
+  title = "Stay in the Loop",
+  subtitle = "Get exclusive updates, early access to tickets, and special content delivered straight to your inbox.",
+  incentive = "🎁 Sign up now and get an exclusive unreleased track!",
+  placeholder = "Enter your email",
+  buttonText = "Subscribe",
+} = Astro.props;
+---
+
+<section id="contact" class="section relative overflow-hidden">
+  <!-- Background gradient -->
+  <div
+    class="absolute inset-0 bg-gradient-to-br from-zinc-900 via-black to-zinc-900"
+  >
+  </div>
+
+  <!-- Decorative elements -->
+  <div
+    class="absolute top-0 left-1/4 w-96 h-96 bg-theme-primary/5 rounded-full blur-3xl"
+  >
+  </div>
+  <div
+    class="absolute bottom-0 right-1/4 w-96 h-96 bg-theme-primary/5 rounded-full blur-3xl"
+  >
+  </div>
+
+  <div class="container-narrow relative">
+    <div class="max-w-xl mx-auto text-center">
+      <!-- Icon -->
+      <div
+        class="w-16 h-16 mx-auto mb-8 rounded-full bg-theme-primary/10 flex items-center justify-center"
+      >
+        <svg
+          class="w-8 h-8 text-theme-primary"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+          ></path>
+        </svg>
+      </div>
+
+      <h2 class="heading-lg text-white mb-4">{title}</h2>
+      <p class="text-body text-zinc-400 mb-4">{subtitle}</p>
+
+      <!-- Incentive badge -->
+      {
+        incentive && (
+          <div class="inline-block px-4 py-2 bg-theme-primary/10 border border-theme-primary/30 rounded-full text-theme-primary text-sm font-medium mb-8">
+            {incentive}
+          </div>
+        )
+      }
+
+      <!-- Email form -->
+      <form id="newsletter-form" class="relative">
+        <!-- Honeypot field - hidden from humans, bots will fill it -->
+        <div class="hidden" aria-hidden="true">
+          <label for="_gotcha_newsletter">Don't fill this out</label>
+          <input
+            type="text"
+            id="_gotcha_newsletter"
+            name="_gotcha"
+            tabindex="-1"
+            autocomplete="off"
+          />
+        </div>
+        <!-- Timestamp for timing check -->
+        <input type="hidden" id="_timestamp_newsletter" name="_timestamp" />
+
+        <div class="flex flex-col sm:flex-row gap-3">
+          <input
+            type="email"
+            id="newsletter-email"
+            name="email"
+            required
+            class="flex-1 input text-center sm:text-left"
+            placeholder={placeholder}
+          />
+          <button type="submit" class="btn-primary whitespace-nowrap">
+            <span id="newsletter-text">{buttonText}</span>
+            <svg
+              id="newsletter-loading"
+              class="w-5 h-5 ml-2 animate-spin hidden"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                class="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                stroke-width="4"></circle>
+              <path
+                class="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Status message -->
+        <p id="newsletter-status" class="mt-4 text-sm hidden"></p>
+      </form>
+
+      <!-- Trust indicators -->
+      <div
+        class="mt-8 flex flex-wrap items-center justify-center gap-4 text-sm text-zinc-500"
+      >
+        <span class="flex items-center gap-1">
+          <svg
+            class="w-4 h-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M5 13l4 4L19 7"></path>
+          </svg>
+          No spam, ever
+        </span>
+        <span class="flex items-center gap-1">
+          <svg
+            class="w-4 h-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M5 13l4 4L19 7"></path>
+          </svg>
+          Unsubscribe anytime
+        </span>
+        <span class="flex items-center gap-1">
+          <svg
+            class="w-4 h-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M5 13l4 4L19 7"></path>
+          </svg>
+          10K+ subscribers
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const form = document.getElementById("newsletter-form") as HTMLFormElement;
+  const submitText = document.getElementById("newsletter-text");
+  const submitLoading = document.getElementById("newsletter-loading");
+  const formStatus = document.getElementById("newsletter-status");
+  const timestampField = document.getElementById(
+    "_timestamp_newsletter",
+  ) as HTMLInputElement;
+
+  // Set timestamp when page loads (for bot timing detection)
+  if (timestampField) {
+    timestampField.value = Date.now().toString();
+  }
+
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    // Show loading
+    if (submitText) submitText.textContent = "Subscribing...";
+    submitLoading?.classList.remove("hidden");
+
+    const formData = new FormData(form);
+    const data: Record<string, any> = {
+      email: formData.get("email"),
+      _gotcha: formData.get("_gotcha"),
+      _timestamp: parseInt(formData.get("_timestamp") as string, 10),
+    };
+
+    try {
+      const response = await fetch("/api/newsletter", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        submitLoading?.classList.add("hidden");
+        if (submitText) submitText.textContent = "Subscribed! ✓";
+
+        if (formStatus) {
+          formStatus.textContent =
+            "🎉 Welcome to the family! Check your inbox for your free track.";
+          formStatus.className = "mt-4 text-sm text-green-500";
+          formStatus.classList.remove("hidden");
+        }
+
+        form.reset();
+        // Reset timestamp for next submission
+        if (timestampField) timestampField.value = Date.now().toString();
+      } else {
+        throw new Error(result.error || "Failed");
+      }
+    } catch (error: any) {
+      submitLoading?.classList.add("hidden");
+      if (submitText) submitText.textContent = "Subscribe";
+
+      if (formStatus) {
+        formStatus.textContent =
+          error.message || "Oops! Something went wrong. Please try again.";
+        formStatus.className = "mt-4 text-sm text-red-500";
+        formStatus.classList.remove("hidden");
+      }
+    }
+  });
+</script>

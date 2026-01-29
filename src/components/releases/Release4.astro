@@ -1,0 +1,163 @@
+---
+/**
+ * Release4 - Carousel Style
+ * Horizontal scrolling releases with large artwork
+ * Best for: Hip-hop, R&B, Urban
+ */
+
+interface Props {
+  sectionTitle?: string;
+  releases?: {
+    title: string;
+    type: string;
+    year: string;
+    coverImage: string;
+    spotifyUrl?: string;
+    streams?: string;
+  }[];
+}
+
+const {
+  sectionTitle = 'Releases',
+  releases = [
+    { title: 'Latest Album', type: 'Album', year: '2024', coverImage: '/landing/images/album-1.jpg', spotifyUrl: '#', streams: '50M+' },
+    { title: 'Summer Vibes', type: 'Single', year: '2024', coverImage: '/landing/images/album-2.jpg', spotifyUrl: '#', streams: '25M+' },
+    { title: 'Midnight Sessions', type: 'EP', year: '2023', coverImage: '/landing/images/album-3.jpg', spotifyUrl: '#', streams: '30M+' },
+    { title: 'Debut Project', type: 'Album', year: '2022', coverImage: '/landing/images/album-4.jpg', spotifyUrl: '#', streams: '100M+' }
+  ]
+} = Astro.props;
+---
+
+<section id="featured-release" class="section bg-gradient-to-b from-violet-950/20 to-slate-950">
+  <div class="container-wide">
+    <!-- Header -->
+    <div class="flex items-end justify-between mb-10">
+      <div>
+        <span class="text-sm text-violet-400 font-medium">Music</span>
+        <h2 class="text-4xl sm:text-5xl font-bold text-white mt-2">{sectionTitle}</h2>
+      </div>
+      <div class="hidden sm:flex gap-2">
+        <button id="prev-btn" class="w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors">
+          <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+        <button id="next-btn" class="w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors">
+          <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Carousel -->
+    <div class="relative -mx-4 sm:mx-0">
+      <!-- Mobile arrows overlay -->
+      <button id="prev-btn-mobile" class="sm:hidden absolute left-2 top-1/2 z-10 -translate-y-1/2 w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
+        <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
+      <button id="next-btn-mobile" class="sm:hidden absolute right-2 top-1/2 z-10 -translate-y-1/2 w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
+        <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
+      <div id="releases-carousel" class="flex gap-6 overflow-x-auto pb-6 px-4 sm:px-0 scrollbar-hide snap-x snap-mandatory scroll-smooth">
+        {releases.map((release, index) => (
+          <a 
+            href={release.spotifyUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group flex-shrink-0 w-72 sm:w-80 snap-start"
+          >
+            <!-- Artwork -->
+            <div class="relative aspect-square rounded-2xl overflow-hidden mb-4">
+              <img 
+                src={release.coverImage} 
+                alt={release.title}
+                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                loading="lazy"
+              />
+              
+              <!-- Gradient overlay -->
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+              
+              <!-- Play button -->
+              <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                <div class="w-16 h-16 rounded-full bg-gradient-to-r from-violet-600 to-cyan-500 flex items-center justify-center transform scale-75 group-hover:scale-100 transition-transform">
+                  <svg class="w-7 h-7 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z"/>
+                  </svg>
+                </div>
+              </div>
+              
+              <!-- Streams badge -->
+              {release.streams && (
+                <div class="absolute bottom-4 left-4 px-3 py-1 bg-black/60 backdrop-blur-sm rounded-full text-sm text-white font-medium">
+                  {release.streams} streams
+                </div>
+              )}
+            </div>
+            
+            <!-- Info -->
+            <div>
+              <div class="flex items-center gap-2 mb-1">
+                <span class="text-xs font-medium text-violet-400 uppercase tracking-wider">{release.type}</span>
+                <span class="text-slate-600">•</span>
+                <span class="text-xs text-slate-500">{release.year}</span>
+              </div>
+              <h3 class="text-xl font-semibold text-white group-hover:text-violet-400 transition-colors">
+                {release.title}
+              </h3>
+            </div>
+          </a>
+        ))}
+      </div>
+      
+      <!-- Gradient overlays -->
+      <div class="absolute left-0 top-0 bottom-6 w-20 bg-gradient-to-r from-slate-950 to-transparent pointer-events-none hidden sm:block" />
+      <div class="absolute right-0 top-0 bottom-6 w-20 bg-gradient-to-l from-slate-950 to-transparent pointer-events-none hidden sm:block" />
+      <!-- Carousel dots -->
+      <div id="carousel-dots" class="flex justify-center gap-2 mt-2 sm:mt-4">
+        {releases.map((_, idx) => (
+          <span class="inline-block w-2 h-2 rounded-full bg-slate-600 opacity-50" data-dot-idx={idx}></span>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const carousel = document.getElementById('releases-carousel');
+  const prevBtn = document.getElementById('prev-btn');
+  const nextBtn = document.getElementById('next-btn');
+  const prevBtnMobile = document.getElementById('prev-btn-mobile');
+  const nextBtnMobile = document.getElementById('next-btn-mobile');
+  const dots = document.querySelectorAll('#carousel-dots [data-dot-idx]');
+
+  function updateDots() {
+    if (!carousel || !dots.length) return;
+    const scrollLeft = carousel.scrollLeft;
+    const firstChild = carousel.firstElementChild as HTMLElement | null;
+    const itemWidth = firstChild ? firstChild.offsetWidth : 1;
+    const idx = Math.round(scrollLeft / (itemWidth + 24)); // 24 = gap-6
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('bg-amber-400', i === idx);
+      dot.classList.toggle('opacity-90', i === idx);
+      dot.classList.toggle('opacity-50', i !== idx);
+    });
+  }
+
+  if (carousel && (prevBtn || prevBtnMobile) && (nextBtn || nextBtnMobile)) {
+    const scrollAmount = 340;
+    [prevBtn, prevBtnMobile].forEach(btn => btn && btn.addEventListener('click', () => {
+      carousel.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+    }));
+    [nextBtn, nextBtnMobile].forEach(btn => btn && btn.addEventListener('click', () => {
+      carousel.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }));
+    carousel.addEventListener('scroll', updateDots);
+    updateDots();
+  }
+</script>

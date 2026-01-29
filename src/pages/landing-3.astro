@@ -1,0 +1,103 @@
+---
+/**
+ * Landing Page 3 - Warm/Acoustic Style
+ * Organic, warm design for singer-songwriters
+ * Theme: Earth tones (amber, stone)
+ */
+
+import LandingLayout from "../layouts/LandingLayout.astro";
+import Navigation from "../components/shared/Navigation.astro";
+import Hero3 from "../components/heroes/Hero3.astro";
+import Bio3 from "../components/bios/Bio3.astro";
+import Release3 from "../components/releases/Release3.astro";
+import Social1 from "../components/social/Social1.astro";
+import Contact1 from "../components/contact/Contact1.astro";
+import Footer from "../components/shared/Footer.astro";
+
+const config = {
+  artistName: "Emma Rivers",
+  tagline: "Stories told through melody. Emotions woven into song.",
+  genre: "Folk / Singer-Songwriter",
+  seo: {
+    title: "Emma Rivers | Singer-Songwriter",
+    description:
+      "Emma Rivers - Award-winning singer-songwriter crafting intimate folk songs. Listen to the new album 'Wildflowers'.",
+    keywords: [
+      "emma rivers",
+      "folk music",
+      "singer songwriter",
+      "acoustic",
+      "indie folk",
+    ],
+  },
+};
+---
+
+<LandingLayout
+  title={config.seo.title}
+  description={config.seo.description}
+  theme="acoustic"
+  keywords={config.seo.keywords}
+>
+  <Navigation
+    artistName={config.artistName}
+    ctaText="Listen"
+    ctaUrl="#featured-release"
+  />
+
+  <main>
+    <Hero3
+      artistName={config.artistName}
+      tagline={config.tagline}
+      genre={config.genre}
+      ctaText="Play New Single"
+      ctaUrl="#featured-release"
+      secondaryCtaText="Tour Dates"
+      secondaryCtaUrl="#contact"
+      heroImage="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=1200&q=80"
+    />
+
+    <Bio3
+      artistName={config.artistName}
+      bio={`Growing up in a small town in Vermont, I learned that the most powerful stories are often the simplest ones. My music draws from those quiet moments - early morning light, conversations over coffee, the changing seasons.
+
+After years of playing coffee shops and open mics, I released my debut album 'Wildflowers' in 2023. It's a collection of songs about love, loss, and finding beauty in the everyday.
+
+Now based in Nashville, I continue to write songs that I hope feel like a conversation with an old friend.`}
+      signature="- Emma"
+      location="Nashville, TN"
+      image="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=600&q=80"
+    />
+
+    <Release3
+      trackTitle="Wildflowers"
+      albumTitle="From the album 'Seasons'"
+      duration="4:23"
+      releaseDate="March 2024"
+      coverImage="https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=600&q=80"
+      lyrics={`In the garden where we used to play
+Wildflowers bloom and fade away
+But every spring they come again
+Like old friends who remember when...`}
+    />
+
+    <Social1
+      title="Follow Along"
+      socialLinks={[
+        { platform: "spotify", url: "#" },
+        { platform: "instagram", url: "#" },
+        { platform: "youtube", url: "#" },
+        { platform: "facebook", url: "#" },
+      ]}
+    />
+
+    <Contact1
+      title="Let's Connect"
+      subtitle="Whether you're interested in booking a show, collaborating on a project, or just want to say hello - I'd love to hear from you."
+      bookingEmail="booking@emmarivers.com"
+      showNewsletter={true}
+    />
+  </main>
+
+  <Footer artistName={config.artistName} />
+</LandingLayout>

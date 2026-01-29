@@ -1,0 +1,168 @@
+---
+/**
+ * Release3 - Single Featured Track
+ * Focus on one track with audio player styling
+ * Best for: Acoustic, Singer-songwriter
+ */
+
+interface Props {
+  trackTitle: string;
+  albumTitle?: string;
+  duration?: string;
+  releaseDate?: string;
+  coverImage?: string;
+  spotifyEmbed?: string;
+  lyrics?: string;
+}
+
+const {
+  trackTitle,
+  albumTitle,
+  duration = "3:45",
+  releaseDate = "January 2024",
+  coverImage = "/landing/images/album-cover.jpg",
+  spotifyEmbed,
+  lyrics,
+} = Astro.props;
+---
+
+<section id="featured-release" class="section bg-stone-900">
+  <div class="container-narrow">
+    <div class="text-center mb-12">
+      <span class="text-amber-600 text-sm font-medium tracking-wider uppercase"
+        >Now Playing</span
+      >
+    </div>
+
+    <!-- Track card -->
+    <div
+      class="bg-stone-800/50 rounded-2xl p-6 sm:p-10 border border-stone-700/50"
+    >
+      <div class="grid md:grid-cols-2 gap-8 items-center">
+        <!-- Album art -->
+        <div class="relative">
+          <div class="aspect-square rounded-xl overflow-hidden shadow-2xl">
+            <img
+              src={coverImage}
+              alt={trackTitle}
+              class="w-full h-full object-cover"
+            />
+          </div>
+
+          <!-- Vinyl record effect -->
+          <div
+            class="absolute -right-4 top-1/2 -translate-y-1/2 w-3/4 h-3/4 rounded-full bg-gradient-to-br from-stone-700 to-stone-900 -z-10 animate-spin-slow"
+          >
+            <div
+              class="absolute inset-4 rounded-full border border-stone-600/30"
+            >
+            </div>
+            <div class="absolute inset-[40%] rounded-full bg-amber-600/20">
+            </div>
+          </div>
+        </div>
+
+        <!-- Track info -->
+        <div>
+          <div class="mb-6">
+            {
+              albumTitle && (
+                <p class="text-stone-500 text-sm mb-2">{albumTitle}</p>
+              )
+            }
+            <h2 class="font-display text-3xl sm:text-4xl text-amber-50 mb-2">
+              {trackTitle}
+            </h2>
+            <div class="flex items-center gap-4 text-sm text-stone-500">
+              <span>{duration}</span>
+              <span>•</span>
+              <span>{releaseDate}</span>
+            </div>
+          </div>
+
+          <!-- Waveform visualization (decorative) -->
+          <div class="flex items-end gap-1 h-16 mb-8">
+            {
+              Array.from({ length: 40 }).map((_, i) => (
+                <div
+                  class="flex-1 bg-amber-600/60 rounded-full animate-pulse"
+                  style={`height: ${20 + Math.random() * 80}%; animation-delay: ${i * 50}ms;`}
+                />
+              ))
+            }
+          </div>
+
+          <!-- Player controls (visual) -->
+          <div class="flex items-center gap-4 mb-8">
+            <button
+              class="p-3 rounded-full bg-stone-700/50 text-stone-400 hover:text-amber-500 transition-colors"
+            >
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"></path>
+              </svg>
+            </button>
+            <button
+              class="w-14 h-14 rounded-full bg-amber-600 text-stone-900 flex items-center justify-center hover:bg-amber-500 transition-colors"
+            >
+              <svg class="w-6 h-6 ml-1" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z"></path>
+              </svg>
+            </button>
+            <button
+              class="p-3 rounded-full bg-stone-700/50 text-stone-400 hover:text-amber-500 transition-colors"
+            >
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"></path>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Streaming button -->
+          <a
+            href="#"
+            class="btn-primary bg-amber-600 hover:bg-amber-500 text-stone-900 w-full"
+          >
+            <svg class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02z"
+              ></path>
+            </svg>
+            Listen on Spotify
+          </a>
+        </div>
+      </div>
+
+      <!-- Lyrics preview (optional) -->
+      {
+        lyrics && (
+          <div class="mt-10 pt-8 border-t border-stone-700/50">
+            <h3 class="text-amber-500 text-sm font-medium mb-4">Lyrics</h3>
+            <p class="text-stone-400 italic leading-relaxed whitespace-pre-line">
+              {lyrics}
+            </p>
+          </div>
+        )
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  @keyframes spin-slow {
+    from {
+      transform: translateY(-50%) rotate(0deg);
+    }
+    to {
+      transform: translateY(-50%) rotate(360deg);
+    }
+  }
+
+  .animate-spin-slow {
+    animation: spin-slow 8s linear infinite;
+    animation-play-state: paused;
+  }
+
+  .animate-spin-slow:hover {
+    animation-play-state: running;
+  }
+</style>

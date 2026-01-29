@@ -1,0 +1,198 @@
+---
+/**
+ * Landing Page Index - Showcase all 6 variations
+ * Acts as a preview/selector page for development
+ */
+
+import LandingLayout from '../layouts/LandingLayout.astro';
+
+const landingPages = [
+  {
+    id: 1,
+    name: 'Bold / Rock',
+    description: 'High-energy, dramatic design for rock/metal artists',
+    theme: 'rock',
+    colors: ['#dc2626', '#0a0a0a', '#ffffff'],
+    preview: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600&q=80',
+    artistExample: 'MIDNIGHT FURY',
+    url: '/landing-1'
+  },
+  {
+    id: 2,
+    name: 'Minimal / Electronic',
+    description: 'Clean, typography-focused design for electronic/DJ artists',
+    theme: 'minimal',
+    colors: ['#ffffff', '#0a0a0a', '#737373'],
+    preview: 'https://images.unsplash.com/photo-1571266028243-e4733b0f0bb0?w=600&q=80',
+    artistExample: 'NOVA',
+    url: '/landing-2'
+  },
+  {
+    id: 3,
+    name: 'Warm / Acoustic',
+    description: 'Organic, warm design for singer-songwriters',
+    theme: 'acoustic',
+    colors: ['#d97706', '#1c1917', '#f5f5f4'],
+    preview: 'https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=600&q=80',
+    artistExample: 'Emma Rivers',
+    url: '/landing-3'
+  },
+  {
+    id: 4,
+    name: 'Urban / Hip-hop',
+    description: 'Dynamic, vibrant design for hip-hop/R&B artists',
+    theme: 'urban',
+    colors: ['#8b5cf6', '#06b6d4', '#0a0a0a'],
+    preview: 'https://images.unsplash.com/photo-1547355253-ff0740f6e8c1?w=600&q=80',
+    artistExample: 'KYRO',
+    url: '/landing-4'
+  },
+  {
+    id: 5,
+    name: 'Classical / Elegant',
+    description: 'Sophisticated, refined design for classical/jazz musicians',
+    theme: 'classical',
+    colors: ['#ca8a04', '#0f0f0f', '#fafafa'],
+    preview: 'https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=600&q=80',
+    artistExample: 'Alexandra Chen',
+    url: '/landing-5'
+  },
+  {
+    id: 6,
+    name: 'Indie / Creative',
+    description: 'Artistic, unconventional design for indie artists',
+    theme: 'indie',
+    colors: ['#ec4899', '#8b5cf6', '#fafafa'],
+    preview: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600&q=80',
+    artistExample: 'Lunar Moths',
+    url: '/landing-6'
+  }
+];
+---
+
+<LandingLayout 
+  title="Music Landing Page Templates | 6 Variations"
+  description="High-converting landing page templates for musicians, artists, and recording studios. Choose from 6 unique styles."
+  theme="minimal"
+>
+  <main class="min-h-screen bg-neutral-950 text-white">
+    <!-- Header -->
+    <header class="border-b border-neutral-800">
+      <div class="max-w-7xl mx-auto px-6 py-8">
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">
+          Music Landing Pages
+        </h1>
+        <p class="text-xl text-neutral-400 max-w-2xl">
+          6 high-converting landing page templates designed for musicians, recording studios, and artists. 
+          Each template is fully customizable and optimized for conversions.
+        </p>
+      </div>
+    </header>
+    
+    <!-- Grid -->
+    <section class="max-w-7xl mx-auto px-6 py-12">
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {landingPages.map((page) => (
+          <a 
+            href={page.url}
+            class="group block bg-neutral-900 rounded-2xl overflow-hidden border border-neutral-800 hover:border-neutral-700 transition-all hover:scale-[1.02] hover:shadow-2xl"
+          >
+            <!-- Preview Image -->
+            <div class="aspect-video bg-neutral-800 relative overflow-hidden">
+              <img 
+                src={page.preview} 
+                alt={page.name}
+                class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-neutral-900 via-transparent to-transparent" />
+              <!-- Color swatches -->
+              <div class="absolute bottom-4 left-4 flex gap-2">
+                {page.colors.map((color) => (
+                  <div 
+                    class="w-6 h-6 rounded-full border border-neutral-600 shadow-lg"
+                    style={`background-color: ${color};`}
+                  />
+                ))}
+              </div>
+              <!-- Theme badge -->
+              <div class="absolute top-4 right-4 px-3 py-1 bg-neutral-900/80 backdrop-blur rounded-full text-xs font-medium">
+                {page.theme}
+              </div>
+            </div>
+            
+            <!-- Content -->
+            <div class="p-6">
+              <h2 class="text-xl font-bold mb-2 group-hover:text-primary-500 transition-colors">
+                {page.name}
+              </h2>
+              <p class="text-neutral-400 text-sm mb-4">
+                {page.description}
+              </p>
+              <div class="flex items-center justify-between">
+                <span class="text-xs text-neutral-500">
+                  Example: {page.artistExample}
+                </span>
+                <span class="text-sm font-medium text-primary-500 group-hover:translate-x-1 transition-transform">
+                  View →
+                </span>
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+    
+    <!-- Features -->
+    <section class="border-t border-neutral-800">
+      <div class="max-w-7xl mx-auto px-6 py-16">
+        <h2 class="text-2xl font-bold mb-8 text-center">Built for Conversions</h2>
+        <div class="grid md:grid-cols-4 gap-8">
+          <div class="text-center">
+            <div class="w-12 h-12 mx-auto mb-4 rounded-xl bg-neutral-800 flex items-center justify-center text-2xl">
+              🎨
+            </div>
+            <h3 class="font-semibold mb-2">6 Unique Themes</h3>
+            <p class="text-sm text-neutral-400">From bold rock to minimal electronic, find your style.</p>
+          </div>
+          <div class="text-center">
+            <div class="w-12 h-12 mx-auto mb-4 rounded-xl bg-neutral-800 flex items-center justify-center text-2xl">
+              📱
+            </div>
+            <h3 class="font-semibold mb-2">Fully Responsive</h3>
+            <p class="text-sm text-neutral-400">Perfect on mobile, tablet, and desktop.</p>
+          </div>
+          <div class="text-center">
+            <div class="w-12 h-12 mx-auto mb-4 rounded-xl bg-neutral-800 flex items-center justify-center text-2xl">
+              ⚡
+            </div>
+            <h3 class="font-semibold mb-2">Lightning Fast</h3>
+            <p class="text-sm text-neutral-400">Static-generated with Astro for blazing speed.</p>
+          </div>
+          <div class="text-center">
+            <div class="w-12 h-12 mx-auto mb-4 rounded-xl bg-neutral-800 flex items-center justify-center text-2xl">
+              📧
+            </div>
+            <h3 class="font-semibold mb-2">Resend Integration</h3>
+            <p class="text-sm text-neutral-400">Contact forms and newsletter ready to go.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Quick Start -->
+    <section class="border-t border-neutral-800 bg-neutral-900/50">
+      <div class="max-w-3xl mx-auto px-6 py-16 text-center">
+        <h2 class="text-2xl font-bold mb-4">Quick Start</h2>
+        <p class="text-neutral-400 mb-8">Get your landing page live in minutes.</p>
+        <div class="bg-neutral-950 rounded-xl p-6 text-left font-mono text-sm overflow-x-auto">
+          <code class="text-green-400"># Install dependencies</code><br />
+          <code class="text-neutral-300">npm install</code><br /><br />
+          <code class="text-green-400"># Start development</code><br />
+          <code class="text-neutral-300">npm run dev</code><br /><br />
+          <code class="text-green-400"># Build for production</code><br />
+          <code class="text-neutral-300">npm run build</code>
+        </div>
+      </div>
+    </section>
+  </main>
+</LandingLayout>

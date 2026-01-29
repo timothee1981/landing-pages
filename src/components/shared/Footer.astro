@@ -1,0 +1,55 @@
+---
+/**
+ * Shared Footer Component
+ * Minimal footer for landing pages
+ */
+
+interface Props {
+  artistName: string;
+  year?: number;
+  showSocial?: boolean;
+  socialLinks?: { platform: string; url: string }[];
+}
+
+const {
+  artistName,
+  year = new Date().getFullYear(),
+  showSocial = true,
+  socialLinks = [],
+} = Astro.props;
+---
+
+<footer class="py-8 bg-black border-t border-white/5">
+  <div class="container-narrow">
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+      <!-- Copyright -->
+      <p class="text-sm text-zinc-500">
+        © {year}
+        {artistName}. All rights reserved.
+      </p>
+
+      <!-- Links -->
+      <div class="flex items-center gap-6 text-sm text-zinc-500">
+        <a href="#" class="hover:text-white transition-colors">Privacy</a>
+        <a href="#" class="hover:text-white transition-colors">Terms</a>
+        {
+          showSocial && socialLinks.length > 0 && (
+            <div class="flex items-center gap-3">
+              {socialLinks.map((link) => (
+                <a
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="hover:text-white transition-colors"
+                  aria-label={link.platform}
+                >
+                  {link.platform}
+                </a>
+              ))}
+            </div>
+          )
+        }
+      </div>
+    </div>
+  </div>
+</footer>

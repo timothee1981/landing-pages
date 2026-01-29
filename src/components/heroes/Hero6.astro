@@ -1,0 +1,148 @@
+---
+/**
+ * Hero6 - Indie/Creative
+ * Asymmetric layout with artistic elements
+ * Best for: Indie, Alternative, Art Pop, Experimental artists
+ * Conversion focus: Uniqueness and creativity
+ */
+
+interface Props {
+  artistName: string;
+  tagline: string;
+  genre?: string;
+  ctaText: string;
+  ctaUrl: string;
+  secondaryCtaText?: string;
+  secondaryCtaUrl?: string;
+  heroImage?: string;
+}
+
+const {
+  artistName,
+  tagline,
+  genre,
+  ctaText,
+  ctaUrl,
+  secondaryCtaText,
+  secondaryCtaUrl,
+  heroImage
+} = Astro.props;
+
+// Split artist name for creative typography
+const nameParts = artistName.split(' ');
+---
+
+<section class="hero-indie relative min-h-screen bg-slate-950 overflow-hidden">
+  <!-- Abstract background shapes -->
+  <div class="absolute inset-0">
+    <div class="absolute top-20 left-10 w-64 h-64 rounded-full bg-pink-500/10 blur-3xl" />
+    <div class="absolute bottom-20 right-20 w-80 h-80 rounded-full bg-violet-500/10 blur-3xl" />
+    <div class="absolute top-1/2 left-1/2 w-96 h-96 rounded-full bg-rose-500/5 blur-3xl transform -translate-x-1/2 -translate-y-1/2" />
+  </div>
+  
+  <!-- Scattered decorative elements - hidden on mobile to avoid navbar overlap -->
+  <div class="absolute top-32 right-1/4 w-3 h-3 bg-pink-400 rounded-full animate-pulse hidden sm:block" />
+  <div class="absolute top-1/2 left-20 w-2 h-2 bg-violet-400 rounded-full animate-pulse delay-300 hidden sm:block" />
+  <div class="absolute bottom-1/3 right-40 w-4 h-4 border border-pink-400/50 rounded-full animate-bounce hidden sm:block" />
+  <div class="absolute top-1/4 left-1/3 text-8xl text-pink-500/5 font-bold select-none hidden sm:block">✦</div>
+  <div class="absolute bottom-1/4 right-1/4 text-6xl text-violet-500/5 font-bold select-none rotate-12 hidden sm:block">✧</div>
+  
+  <div class="relative z-10 container-wide min-h-screen grid lg:grid-cols-12 gap-8 pt-28 pb-12 sm:py-20 items-center">
+    <!-- Main content - Asymmetric positioning -->
+    <div class="lg:col-span-7 lg:col-start-2 px-2 sm:px-0">
+      <!-- Genre tag with playful styling -->
+      {genre && (
+        <div class="inline-flex items-center gap-2 mb-6 sm:mb-8 animate-fade-in">
+          <span class="w-8 h-px bg-pink-400" />
+          <span class="text-pink-400 text-sm font-medium tracking-wider">{genre}</span>
+        </div>
+      )}
+      
+      <!-- Artist name - Creative typography -->
+      <h1 class="mb-6 sm:mb-8 animate-slide-up">
+        {nameParts.map((part, index) => (
+          <span 
+            class={`block text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold ${
+              index % 2 === 0 ? 'text-white' : 'text-pink-400'
+            } ${index > 0 ? '-mt-2 sm:-mt-4' : ''}`}
+            style={`transform: translateX(${index * 20}px);`}
+          >
+            {part}
+          </span>
+        ))}
+      </h1>
+      
+      <!-- Tagline with artistic quote marks -->
+      <div class="relative max-w-lg mb-8 sm:mb-10 animate-fade-in delay-200">
+        <span class="absolute -left-4 -top-4 text-4xl text-pink-400/30">"</span>
+        <p class="text-lg sm:text-xl md:text-2xl text-slate-300 leading-relaxed pl-4">
+          {tagline}
+        </p>
+        <span class="absolute -right-2 bottom-0 text-4xl text-pink-400/30">"</span>
+      </div>
+      
+      <!-- CTAs with playful style -->
+      <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 animate-slide-up delay-300">
+        <a href={ctaUrl} class="group relative inline-flex items-center gap-3 px-6 py-3 sm:px-8 sm:py-4 bg-pink-500 hover:bg-pink-400 text-white font-semibold rounded-full overflow-hidden transition-all hover:scale-105">
+          <span class="relative z-10">{ctaText}</span>
+          <span class="relative z-10 group-hover:rotate-45 transition-transform">→</span>
+          <!-- Decorative circles -->
+          <div class="absolute -right-2 -top-2 w-8 h-8 bg-violet-500 rounded-full opacity-50" />
+        </a>
+        
+        {secondaryCtaText && secondaryCtaUrl && (
+          <a href={secondaryCtaUrl} class="group inline-flex items-center gap-2 text-slate-400 hover:text-pink-400 transition-colors">
+            <span class="underline underline-offset-4 decoration-dotted">{secondaryCtaText}</span>
+            <span class="group-hover:translate-x-1 transition-transform">✦</span>
+          </a>
+        )}
+      </div>
+    </div>
+    
+    <!-- Image/Visual element - Offset positioning -->
+    {heroImage && (
+      <div class="lg:col-span-4 relative animate-scale-in delay-400">
+        <div class="relative">
+          <!-- Decorative frame -->
+          <div class="absolute -inset-4 border-2 border-dashed border-pink-400/20 rounded-2xl transform rotate-3" />
+          <div class="absolute -inset-8 border border-violet-400/10 rounded-2xl transform -rotate-2" />
+          
+          <!-- Main image -->
+          <div class="relative rounded-2xl overflow-hidden transform -rotate-2 hover:rotate-0 transition-transform duration-500">
+            <img 
+              src={heroImage} 
+              alt={artistName}
+              class="w-full aspect-[3/4] object-cover"
+            />
+            <!-- Color overlay -->
+            <div class="absolute inset-0 bg-gradient-to-t from-pink-500/20 via-transparent to-violet-500/20 mix-blend-overlay" />
+          </div>
+          
+          <!-- Floating badges -->
+          <div class="absolute -top-4 -right-4 px-4 py-2 bg-violet-500 text-white text-sm font-medium rounded-full transform rotate-12">
+            New Music
+          </div>
+          <div class="absolute -bottom-4 -left-4 px-3 py-1 bg-pink-400 text-slate-900 text-xs font-bold rounded-full transform -rotate-6">
+            ★★★★★
+          </div>
+        </div>
+      </div>
+    )}
+  </div>
+  
+  <!-- Bottom decorative bar -->
+  <div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-pink-500 via-violet-500 to-pink-500" />
+  
+  <!-- Corner stickers - hidden on mobile to avoid navbar overlap -->
+  <div class="absolute top-8 right-8 px-3 py-1 bg-pink-400/20 text-pink-300 text-xs rounded-full border border-pink-400/30 animate-bounce hidden sm:block">
+    ✨ Independent
+  </div>
+</section>
+
+<style>
+  .hero-indie {
+    --color-primary: #f472b6;
+    --color-secondary: #a78bfa;
+    --color-dark: #1e1e2f;
+  }
+</style>

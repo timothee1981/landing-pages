@@ -1,0 +1,113 @@
+---
+/**
+ * Landing Page 2 - Minimal/Electronic Style
+ * Clean, typography-focused design for electronic/DJ artists
+ * Theme: Black + White minimal
+ */
+
+import LandingLayout from "../layouts/LandingLayout.astro";
+import Navigation from "../components/shared/Navigation.astro";
+import Hero2 from "../components/heroes/Hero2.astro";
+import Bio2 from "../components/bios/Bio2.astro";
+import Release2 from "../components/releases/Release2.astro";
+import Social1 from "../components/social/Social1.astro";
+import Contact2 from "../components/contact/Contact2.astro";
+import Footer from "../components/shared/Footer.astro";
+
+const config = {
+  artistName: "NOVA",
+  tagline: "Sound design for the future.",
+  genre: "Electronic / Ambient",
+  seo: {
+    title: "NOVA | Electronic Music Producer",
+    description:
+      "NOVA - Electronic music producer and sound designer. Explore atmospheric soundscapes and cutting-edge production.",
+    keywords: ["nova", "electronic music", "ambient", "producer", "dj"],
+  },
+};
+---
+
+<LandingLayout
+  title={config.seo.title}
+  description={config.seo.description}
+  theme="minimal"
+  keywords={config.seo.keywords}
+>
+  <Navigation
+    artistName={config.artistName}
+    ctaText="Stream"
+    ctaUrl="#featured-release"
+  />
+
+  <main>
+    <Hero2
+      artistName={config.artistName}
+      tagline={config.tagline}
+      genre={config.genre}
+      ctaText="Explore"
+      ctaUrl="#featured-release"
+      artistImage="https://images.unsplash.com/photo-1516280440614-37939bbacd81?w=400&q=80"
+    />
+
+    <Bio2
+      artistName={config.artistName}
+      shortBio="Producer. Sound designer. Audio architect."
+      bio="Based in Berlin, NOVA creates immersive electronic soundscapes that blur the line between music and experience. With releases on labels like Kompakt and Ninja Tune, and installations at MoMA and Tate Modern, the work spans concert halls to gallery spaces."
+      image="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=800&q=80"
+      highlights={["Producer", "Sound Designer", "Live Performer"]}
+    />
+
+    <Release2
+      sectionTitle="Releases"
+      releases={[
+        {
+          title: "Signals",
+          year: "2024",
+          coverImage:
+            "https://images.unsplash.com/photo-1614149162883-504ce4d13909?w=500&q=80",
+          spotifyUrl: "#featured-release",
+        },
+        {
+          title: "Void",
+          year: "2023",
+          coverImage:
+            "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500&q=80",
+          spotifyUrl: "#featured-release",
+        },
+        {
+          title: "Frequency",
+          year: "2022",
+          coverImage:
+            "https://images.unsplash.com/photo-1557672172-298e090bd0f1?w=500&q=80",
+          spotifyUrl: "#featured-release",
+        },
+        {
+          title: "Origin",
+          year: "2021",
+          coverImage:
+            "https://images.unsplash.com/photo-1549490349-8643362247b5?w=500&q=80",
+          spotifyUrl: "#featured-release",
+        },
+      ]}
+    />
+
+    <Social1
+      title="Connect"
+      socialLinks={[
+        { platform: "spotify", url: "#" },
+        { platform: "soundcloud", url: "#" },
+        { platform: "instagram", url: "#" },
+        { platform: "youtube", url: "#" },
+      ]}
+    />
+
+    <Contact2
+      title="Stay Updated"
+      subtitle="Receive updates on new releases, live shows, and exclusive content."
+      incentive="🎧 Get an exclusive mix when you subscribe"
+      buttonText="Subscribe"
+    />
+  </main>
+
+  <Footer artistName={config.artistName} />
+</LandingLayout>

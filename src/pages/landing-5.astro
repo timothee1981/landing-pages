@@ -1,0 +1,120 @@
+---
+/**
+ * Landing Page 5 - Classical/Elegant Style
+ * Sophisticated, refined design for classical/jazz musicians
+ * Theme: Gold + Dark
+ */
+
+import LandingLayout from "../layouts/LandingLayout.astro";
+import Navigation from "../components/shared/Navigation.astro";
+import Hero5 from "../components/heroes/Hero5.astro";
+import Bio5 from "../components/bios/Bio5.astro";
+import Release5 from "../components/releases/Release5.astro";
+import Social1 from "../components/social/Social1.astro";
+import Contact3 from "../components/contact/Contact3.astro";
+import Footer from "../components/shared/Footer.astro";
+
+const config = {
+  artistName: "Alexandra Chen",
+  tagline: "Where classical tradition meets contemporary vision.",
+  genre: "Classical / Contemporary",
+  seo: {
+    title: "Alexandra Chen | Concert Pianist",
+    description:
+      "Alexandra Chen - Grammy-nominated concert pianist. Experience the new album 'Nocturnes' featuring original compositions and reimagined classics.",
+    keywords: [
+      "alexandra chen",
+      "classical pianist",
+      "concert pianist",
+      "piano music",
+      "contemporary classical",
+    ],
+  },
+};
+---
+
+<LandingLayout
+  title={config.seo.title}
+  description={config.seo.description}
+  theme="classical"
+  keywords={config.seo.keywords}
+>
+  <Navigation
+    artistName={config.artistName}
+    ctaText="Listen"
+    ctaUrl="#featured-release"
+  />
+
+  <main>
+    <Hero5
+      artistName={config.artistName}
+      tagline={config.tagline}
+      genre={config.genre}
+      ctaText="Stream Album"
+      ctaUrl="#featured-release"
+      secondaryCtaText="Book a Performance"
+      secondaryCtaUrl="#contact"
+      albumCover="https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=600&q=80"
+      albumTitle="Nocturnes"
+    />
+
+    <Bio5
+      artistName={config.artistName}
+      bio={`Alexandra Chen has captivated audiences worldwide with her distinctive blend of technical precision and emotional depth. A graduate of Juilliard and Curtis Institute, she has performed with the world's leading orchestras including the Berlin Philharmonic, London Symphony, and New York Philharmonic.
+
+Her latest album 'Nocturnes' represents a deeply personal exploration of the night-inspired works of Chopin, Debussy, and her own original compositions.`}
+      quote="A pianist of extraordinary sensitivity and power, Chen brings fresh perspective to familiar works while revealing hidden depths in contemporary music."
+      quoteSource="The New York Times"
+      image="https://images.unsplash.com/photo-1552422535-c45813c61732?w=600&q=80"
+      awards={[
+        "Grammy Nominee",
+        "Avery Fisher Career Grant",
+        "Leeds Piano Competition Winner",
+      ]}
+    />
+
+    <Release5
+      releaseTitle="Nocturnes"
+      artistName={config.artistName}
+      releaseYear="2024"
+      description="A journey through the quiet hours, from Chopin's immortal nocturnes to new works written for this recording."
+      coverImage="https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=600&q=80"
+      spotifyUrl="#"
+      trackList={[
+        "Chopin: Nocturne in E-flat major, Op. 9 No. 2",
+        "Debussy: Clair de Lune",
+        "Chen: Midnight Reflections",
+        "Chopin: Nocturne in C-sharp minor, Op. posth.",
+        "Chen: After Hours",
+        "Satie: Gymnopédie No. 1",
+      ]}
+    />
+
+    <Social1
+      title="Connect"
+      socialLinks={[
+        { platform: "spotify", url: "#" },
+        { platform: "youtube", url: "#" },
+        { platform: "instagram", url: "#" },
+        { platform: "facebook", url: "#" },
+      ]}
+    />
+
+    <Contact3
+      title="Booking & Inquiries"
+      subtitle="For concert bookings, press inquiries, and collaborations."
+      primaryCta={{
+        text: "Contact Management",
+        url: "mailto:management@alexandrachen.com",
+      }}
+      secondaryCta={{ text: "View Full Biography", url: "#" }}
+      contactOptions={[
+        { label: "Management", value: "IMG Artists", type: "link" },
+        { label: "Press", value: "press@alexandrachen.com", type: "email" },
+        { label: "General", value: "info@alexandrachen.com", type: "email" },
+      ]}
+    />
+  </main>
+
+  <Footer artistName={config.artistName} />
+</LandingLayout>
